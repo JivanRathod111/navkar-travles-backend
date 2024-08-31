@@ -50,15 +50,15 @@ public class BusController {
 	public List<Bus> findAllBus() {
 		return busService.getAllBus();
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public String deleteBus(@PathVariable Long id) {
 		return busService.deleteBus(id);
 	}
-	
+
 	@PutMapping("update/id")
-	public Bus  updateBus(@RequestBody Bus bus, @PathVariable Long id) {
-		return busService.updateBus(bus , id);
+	public Bus updateBus(@RequestBody Bus bus, @PathVariable Long id) {
+		return busService.updateBus(bus, id);
 	}
 
 }

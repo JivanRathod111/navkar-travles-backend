@@ -28,43 +28,34 @@ import java.util.List;
 @Service
 public class BookingService {
 
-	 @Autowired
-	    private BookingRepository bookingRepository;
+	@Autowired
+	private BookingRepository bookingRepository;
 
-	    @Autowired
-	    private BusRepository busRepository;
+	@Autowired
+	private BusRepository busRepository;
 
-	    @Autowired
-	    private SeatRepository seatRepository;
+	@Autowired
+	private SeatRepository seatRepository;
 
-	    public Booking createBooking(Booking bookingRequest) {
-	        // Find the Bus entity by ID
-	        Bus bus = busRepository.findById(bookingRequest.getBus().getId())
-	                .orElseThrow(() -> new RuntimeException("Bus not found"));
+	public Booking createBooking(Booking bookingRequest) {
+		// Find the Bus entity by ID
+		Bus bus = busRepository.findById(bookingRequest.getBus().getId())
+				.orElseThrow(() -> new RuntimeException("Bus not found"));
 
-	        // Set the Bus entity on the Booking
-	        bookingRequest.setBus(bus);
+		// Set the Bus entity on the Booking
+		bookingRequest.setBus(bus);
 
-	        // Set the Bus entity on each Seat and associate with the Booking
-	        List<Seat> seats = bookingRequest.getSeats();
-	        for (Seat seat : seats) {
-	            seat.setBus(bus);  // Set Bus to Seat
-	            seat.setBooking(bookingRequest); // Set Booking to Seat
-	        }
-	        bookingRequest.setSeats(seats);
+		// Set the Bus entity on each Seat and associate with the Booking
+		List<Seat> seats = bookingRequest.getSeats();
+		for (Seat seat : seats) {
+			seat.setBus(bus); // Set Bus to Seat
+			seat.setBooking(bookingRequest); // Set Booking to Seat
+		}
+		bookingRequest.setSeats(seats);
 
-	        // Save and return the Booking
-	        return bookingRepository.save(bookingRequest);
-	    }
-	    
-	    
-
-//	public Booking saveBooking(Booking booking) {
-//		return bookingRepository.save(booking);
-//	}
-	
-
-	
+		// Save and return the Booking
+		return bookingRepository.save(bookingRequest);
+	}
 
 	public Booking updateBooking(Long id, Booking updatedBooking) {
 		Booking existingBooking = bookingRepository.findById(id)
@@ -102,16 +93,18 @@ public class BookingService {
 
 		return bookingRepository.save(existingBooking);
 	}
-   
+
 	// Get All Bookings
 	public List<Booking> getAllBooking() {
 		return bookingRepository.findAll();
 	}
-    // Get Booking By Id
+
+	// Get Booking By Id
 	public Booking getBookingById(Long id) {
 		return bookingRepository.findById(id).orElse(null);
 	}
-    // Delete Booking
+
+	// Delete Booking
 	public String deleteBooking(Long id) {
 		if (bookingRepository.existsById(id)) {
 			bookingRepository.deleteById(id);

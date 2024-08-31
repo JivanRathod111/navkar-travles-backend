@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import com.sites.navkar.entity.Bus;
 import com.sites.navkar.entity.Seat;
 import com.sites.navkar.repository.BusRepository;
-import com.sites.navkar.repository.TripRepository;
 
 @Service
 public class BusService {
